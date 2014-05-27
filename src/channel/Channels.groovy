@@ -3,12 +3,12 @@ package channel
 class Channels {
     class BreakException extends Exception {}
 
-    static def select(Closure closure) {
+    static def forSelect(Closure closure) {
+        def cloneClosure = closure.clone() // thread safe
+        cloneClosure.delegate = new Channels()
         try {
             while (true) {
-                Channels chans = new Channels()
-                closure.delegate = chans
-                closure()
+                cloneClosure()
                 sleep(10)
             }
         } catch (BreakException e) {

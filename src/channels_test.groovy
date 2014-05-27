@@ -1,14 +1,15 @@
-def chan = new channel.Channel()
+def chan = new channel.Channel(2)
 def quit = new channel.Channel()
 Thread.start {
-    sleep(1000)
     chan.send "Hello"
+    sleep(1000)
+    chan.send "World"
 }
 Thread.start {
     quit << "quit"
 }
 
-channel.Channels.select {
+channel.Channels.forSelect {
     when(chan) { msg ->
         println msg
     }
