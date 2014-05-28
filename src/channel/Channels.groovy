@@ -9,7 +9,7 @@ class Channels {
         try {
             while (true) {
                 cloneClosure()
-                sleep(10)
+                sleep(10, {})
             }
         } catch (BreakException e) {
         }
