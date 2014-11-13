@@ -16,12 +16,9 @@ class Channels {
     }
 
     def when(Channel chan, Closure closure) {
-        def msg
-        synchronized (chan) {
-            if (chan.peek() == null)
-                return
-            msg = chan.receive()
-        }
+        if (chan.peek() == null)
+            return
+        def msg = chan.receive()
         closure(msg)
     }
 
